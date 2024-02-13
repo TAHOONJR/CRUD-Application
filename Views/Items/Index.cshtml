@@ -1,0 +1,55 @@
+@model IEnumerable<Items>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container p-3">
+    <h1>@TempData["message"]</h1>
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Items View</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-asp-controller="Items" asp-action="Create" class="btn btn-primary">
+                Add New Item <i class="bi bi-plus"></i>
+            </a>
+        </div>
+    </div>
+    <table class="table table-borderd table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th colspan="2">Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th colspan="2">CreateDate</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var Items in Model)
+            {
+                <tr>
+                    <td>@Items.Id</td>
+                    <td><img src="~/images/@Items.ImagePath" style="width: 48px;" class="img-thumbnail" /><td></td>
+                    <td>@Items.Name</td>
+                    <td>@Items.Price</td>
+                    <td>@Items.Description</td>
+                    <td>@Items.CategoryId</td>
+                    <td>@Items.CreateDate</td>
+                    <td>
+                        <a asp-controller="Items" asp-action="Edit" asp-route-Id = "@Items.Id" class="btn btn-sm btn-success">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        &nbsp;
+                        <a asp-controller="Items" asp-action="Delete" asp-route-Id = "@Items.Id" class="btn btn-sm btn-danger">
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

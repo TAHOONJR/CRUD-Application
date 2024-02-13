@@ -1,0 +1,121 @@
+@model Items
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<form method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
+    <div class="row pb-2">
+        <div class="col-2">
+            <label asp-for="Name"></label>
+        </div>
+        <div class="col-10">
+            <input asp-for="Name" class="form-control" />
+        </div>
+    </div>
+    <div class="row pb-2">
+        <div class="col-2">
+            <label asp-for="Price"></label>
+        </div>
+        <div class="col-10">
+            <input asp-for="Price" class="form-control" />
+        </div>
+    </div>
+    <div class="row pb-2">
+        <div class="col-2">
+            <label asp-for="Description"></label>
+        </div>
+        <div class="col-10">
+            <input asp-for="Description" class="form-control" />
+        </div>
+    </div>
+    <div class="row pb-2">
+            <div class="col-2">
+                <label asp-for="CategoryId"></label>
+            </div>
+        <div class="col-10">
+            <select asp-for="CategoryId" class="form-control">
+                <option value="0">Select Category</option>
+                <option value="1">Electronics</option>
+                <option value="2">Food</option>
+                <option value="3">Other</option>
+            </select>
+        </div>
+    </div>
+    <div>
+        <input type="file" asp-for="clientFile" onchange="loadFile(event)"/>
+        <img id="myImg" height="200"/>
+    </div>
+    <!--<div class="row pb-2"> //To set the date of creation manually
+        <div class="col-2">
+            <label asp-for="CreateDate"></label>
+        </div>
+        <div class="col-10">
+            <input asp-for="CreateDate" class="form-control" />
+        </div>
+    </div>-->
+    <div class="row pb-2">
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-action="Index" asp-controller="Items" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+</form>
+
+@Html.ValidationSummary()
+
+
+
+
+
+
+
+
+
+
+<script>
+    
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var myImg = document.getElementById('myImg');
+            myImg.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+
+
+    function validateForm() {
+        var name = document.getElementById('Name').value;
+        var price = document.getElementById('Price').value;
+
+        if (name.trim() === '') {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Name cannot be empty!",
+            });
+            return false;
+        }
+
+        if (price.trim() === '') {
+                Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Price cannot be empty!",
+            });
+            return false;
+        }
+
+                if (Category === 'Select Category') {
+                Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please Select a Category!",
+            });
+            return false;
+        }
+        return true;
+    }
+</script>
