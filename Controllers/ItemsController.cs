@@ -1,15 +1,16 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using WebApplication1.Data;
 using WebApplication1.Models;
 using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace WebApplication1.Controllers
 {
-
+    [Authorize]
     
     public class ItemsController : Controller
     {
+        
         public ItemsController(AppDbContext db , IHostingEnvironment host)
         {
             _db = db;
@@ -26,6 +27,7 @@ namespace WebApplication1.Controllers
         }
 
         //GET - CREATE
+        [Authorize(Roles = clsRoles.roleAdmin)]
         public IActionResult Create()
         {
             return View();
@@ -60,6 +62,7 @@ namespace WebApplication1.Controllers
         }
 
         //GET - EDIT
+        [Authorize(Roles = clsRoles.roleAdmin)]
         public IActionResult Edit(int? Id)
         {
             if(Id == null || Id == 0)
@@ -94,6 +97,7 @@ namespace WebApplication1.Controllers
 
         //GET - DELETE
         [HttpGet]
+        [Authorize(Roles = clsRoles.roleAdmin)]
         [Route("Items/Delete/{Id}")]
         public IActionResult Delete(int? Id)
         {

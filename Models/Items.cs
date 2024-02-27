@@ -18,7 +18,7 @@ namespace WebApplication1.Models
 
         [Required]
         [Display(Name = "Category")] //to display the name in the view
-        public int? CategoryId { get; set; }
+        public string? CategoryId { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //to auto generate the date
         public DateTime CreateDate { get; set; } = DateTime.Now;
